@@ -20,7 +20,7 @@ This project is based on the original [UTFT library](http://www.rinkydinkelectro
 
 As a derivative work of the original UTFT library, this project is licensed under:
 
-[![license](by-nc-sa.eu.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+[![license](graphics/by-nc-sa.eu.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 
