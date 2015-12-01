@@ -84,6 +84,8 @@
 	#else
 		#error "Unsupported ARM MCU!"
 	#endif
+#elif defined(ESP8266)
+        #include "hardware/esp8266/HW_ESP8266.h"
 #endif
 #include "memorysaver.h"
 

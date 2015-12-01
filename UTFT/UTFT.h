@@ -178,6 +178,9 @@
 #elif defined(__arm__)
 	#include "Arduino.h" // This will include energia.h where appropriate
 	#include "hardware/arm/HW_ARM_defines.h"
+#elif defined(ESP8266)
+	#include "Arduino.h"
+	#include "hardware/esp8266/HW_ESP8266_defines.h"
 #endif
 
 struct _current_font
