@@ -93,12 +93,63 @@ UTFT::UTFT()
 {
 }
 
+#if defined(ESP8266)
+// Constructor when using hardware SPI
+UTFT::UTFT(byte model, int CS, int RST, int SER)
+{
+	word	dsx[] = {239, 239, 239, 239, 239, 239, 175, 175, 239, 127, 127, 239, 271, 479, 239, 239, 239, 0, 0, 239, 479, 319, 239, 175, 127, 239, 239, 319, 319, 799, 127, 127};
+	word	dsy[] = {319, 399, 319, 319, 319, 319, 219, 219, 399, 159, 127, 319, 479, 799, 319, 319, 319, 0, 0, 319, 799, 479, 319, 219, 159, 319, 319, 479, 479, 479, 159, 159};
+	byte	dtm[] = {16, 16, 16, 8, 8, 16, 8, SERIAL_4PIN, 16, SERIAL_5PIN, SERIAL_5PIN, 16, 16, 16, 8, 16, LATCHED_16, 0, 0, 8, 16, 16, 16, 8, SERIAL_5PIN, SERIAL_5PIN, SERIAL_4PIN, 16, 16, 16, SERIAL_5PIN, SERIAL_5PIN};
+
+	hwSPI = true;
+
+	disp_x_size =			dsx[model];
+	disp_y_size =			dsy[model];
+	display_transfer_mode =	dtm[model];
+	display_model =			model;
+
+	__p1 = NOTINUSE;
+	__p2 = NOTINUSE;
+	__p3 = CS;
+	__p4 = RST;
+	__p5 = SER;
+
+	if (display_transfer_mode == SERIAL_4PIN)
+	{
+		display_transfer_mode=1;
+		display_serial_mode=SERIAL_4PIN;
+	}
+	if (display_transfer_mode == SERIAL_5PIN)
+	{
+		display_transfer_mode=1;
+		display_serial_mode=SERIAL_5PIN;
+	}
+
+	P_CS	= portOutputRegister(digitalPinToPort(CS));
+	B_CS	= digitalPinToBitMask(CS);
+
+	if (RST != NOTINUSE)
+	    {
+		P_RST	= portOutputRegister(digitalPinToPort(RST));
+		B_RST	= digitalPinToBitMask(RST);
+	    }
+	if (display_serial_mode!=SERIAL_4PIN)
+	    {
+		P_RS	= portOutputRegister(digitalPinToPort(SER));
+		B_RS	= digitalPinToBitMask(SER);
+	    }
+}
+#endif // defined(ESP8266)
+
 UTFT::UTFT(byte model, int RS, int WR, int CS, int RST, int SER)
 { 
 	word	dsx[] = {239, 239, 239, 239, 239, 239, 175, 175, 239, 127, 127, 239, 271, 479, 239, 239, 239, 0, 0, 239, 479, 319, 239, 175, 127, 239, 239, 319, 319, 799, 127, 127};
 	word	dsy[] = {319, 399, 319, 319, 319, 319, 219, 219, 399, 159, 127, 319, 479, 799, 319, 319, 319, 0, 0, 319, 799, 479, 319, 219, 159, 319, 319, 479, 479, 479, 159, 159};
 	byte	dtm[] = {16, 16, 16, 8, 8, 16, 8, SERIAL_4PIN, 16, SERIAL_5PIN, SERIAL_5PIN, 16, 16, 16, 8, 16, LATCHED_16, 0, 0, 8, 16, 16, 16, 8, SERIAL_5PIN, SERIAL_5PIN, SERIAL_4PIN, 16, 16, 16, SERIAL_5PIN, SERIAL_5PIN};
 
+#if defined(ESP8266)
+	hwSPI = false;
+#endif
 	disp_x_size =			dsx[model];
 	disp_y_size =			dsy[model];
 	display_transfer_mode =	dtm[model];
@@ -209,8 +260,15 @@ void UTFT::InitLCD(byte orientation)
 	orient=orientation;
 	_hw_special_init();
 
+#if defined(ESP8266)
+	if (hwSPI == false) {
+	    pinMode(__p1,OUTPUT);
+	    pinMode(__p2,OUTPUT);
+	}
+#else
 	pinMode(__p1,OUTPUT);
 	pinMode(__p2,OUTPUT);
+#endif
 	pinMode(__p3,OUTPUT);
 	if (__p4 != NOTINUSE)
 		pinMode(__p4,OUTPUT);

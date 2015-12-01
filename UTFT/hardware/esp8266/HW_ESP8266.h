@@ -1,8 +1,26 @@
+#include <SPI.h>
+
 // *** Hardwarespecific functions ***
 void UTFT::_hw_special_init (  ) {
+    if ( hwSPI ) {
+        SPI.begin (  );
+        SPI.setClockDivider ( SPI_CLOCK_DIV4 );
+        SPI.setBitOrder ( MSBFIRST );
+        SPI.setDataMode ( SPI_MODE0 );
+    }
 }
 
 void UTFT::LCD_Writ_Bus ( char VH, char VL, byte mode ) {
+    if ( hwSPI ) {
+        if ( VH == 1 ) {
+            sbi ( P_RS, B_RS );
+        } else {
+            cbi ( P_RS, B_RS );
+        }
+        SPI.transfer ( VL );
+        return;
+    }
+
     switch ( mode ) {
     case 1:
         if ( display_serial_mode == SERIAL_4PIN ) {

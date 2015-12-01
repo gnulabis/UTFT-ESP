@@ -197,6 +197,9 @@ class UTFT
 	public:
 		UTFT();
 		UTFT(byte model, int RS, int WR, int CS, int RST, int SER=0);
+#if defined(ESP8266)
+		UTFT(byte model, int CS, int RST, int SER=0);
+#endif
 		void	InitLCD(byte orientation=LANDSCAPE);
 		void	clrScr();
 		void	drawPixel(int x, int y);
@@ -270,6 +273,9 @@ class UTFT
 		void _fast_fill_8(int ch, long pix);
 		void _convert_float(char *buf, double num, int width, byte prec);
 
+#if defined(ESP8266)
+		boolean hwSPI;
+#endif
 #if defined(ENERGIA)
 		volatile uint32_t* portOutputRegister(int value);
 #endif
