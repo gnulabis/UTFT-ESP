@@ -3,6 +3,8 @@
 ## Project Summary
 This project brings support for the [ESP8266](https://en.wikipedia.org/wiki/ESP8266) microcontroller to the popular [UTFT library](http://www.rinkydinkelectronics.com/library.php?id=51).
 
+To use it, simply copy the UTFT folder to your [Arduino library folder](https://www.arduino.cc/en/Guide/Libraries).
+
 In addition to the original [bit-banging](https://en.wikipedia.org/wiki/Bit_banging) communication method of the UTFT library, this project also introduces support for true hardware SPI communication (only supported on ESP8266 for now, sorry for that) for serial interface displays. A new UTFT constructor has been added for this purpose:
 
 `UTFT(byte model, int CS, int RST, int SER=0);`
