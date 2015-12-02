@@ -17,7 +17,7 @@ void UTFT::LCD_Writ_Bus ( char VH, char VL, byte mode ) {
         } else {
             cbi ( P_RS, B_RS );
         }
-        SPI.transfer ( VL );
+        SPI.write ( VL );
         return;
     }
 
