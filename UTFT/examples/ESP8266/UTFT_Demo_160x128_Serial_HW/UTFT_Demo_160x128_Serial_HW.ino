@@ -8,7 +8,7 @@
 // This program is a demo of how to use most of the functions
 // of the library with a supported display module.
 //
-// This demo was made for modules with a screen resolution 
+// This demo was made for modules with a screen resolution
 // of 160x128 pixels.
 //
 // This demo implements the serial interface via hardware.
@@ -27,7 +27,7 @@ UTFT myGLCD ( ST7735, 15, 5, 4 );
 void setup (  ) {
     randomSeed ( analogRead ( 0 ) );
 
-// Setup the LCD
+    // Setup the LCD
     myGLCD.InitLCD (  );
     myGLCD.setFont ( SmallFont );
 }
@@ -38,7 +38,7 @@ void loop (  ) {
     int y, y2;
     int r;
 
-// Clear the screen and draw the frame
+    // Clear the screen and draw the frame
     myGLCD.clrScr (  );
 
     myGLCD.setColor ( 255, 0, 0 );
@@ -47,16 +47,16 @@ void loop (  ) {
     myGLCD.fillRect ( 0, 114, 159, 127 );
     myGLCD.setColor ( 255, 255, 255 );
     myGLCD.setBackColor ( 255, 0, 0 );
-    myGLCD.print ( "Universal TFT Lib.", CENTER, 1 );
+    myGLCD.print ( String("Universal TFT Lib."), CENTER, 1 );
     myGLCD.setBackColor ( 64, 64, 64 );
     myGLCD.setColor ( 255, 255, 0 );
-    myGLCD.print ( "H.Karlsen", LEFT, 114 );
-    myGLCD.print ( "(C)2015", RIGHT, 114 );
+    myGLCD.print ( String("H.Karlsen"), LEFT, 114 );
+    myGLCD.print ( String("(C)2015"), RIGHT, 114 );
 
     myGLCD.setColor ( 0, 0, 255 );
     myGLCD.drawRect ( 0, 13, 159, 113 );
 
-// Draw crosshairs
+    // Draw crosshairs
     myGLCD.setColor ( 0, 0, 255 );
     myGLCD.setBackColor ( 0, 0, 0 );
     myGLCD.drawLine ( 79, 14, 79, 113 );
@@ -69,9 +69,9 @@ void loop (  ) {
 
     yield (  );
 
-// Draw sin-, cos- and tan-lines  
+    // Draw sin-, cos- and tan-lines
     myGLCD.setColor ( 0, 255, 255 );
-    myGLCD.print ( "Sin", 5, 15 );
+    myGLCD.print ( String("Sin"), 5, 15 );
     for ( int i = 1; i < 158; i++ ) {
         myGLCD.drawPixel ( i, 63 + ( sin ( ( ( i * 2.27 ) * 3.14 ) / 180 ) * 40 ) );
     }
@@ -79,7 +79,7 @@ void loop (  ) {
     yield (  );
 
     myGLCD.setColor ( 255, 0, 0 );
-    myGLCD.print ( "Cos", 5, 27 );
+    myGLCD.print ( String("Cos"), 5, 27 );
     for ( int i = 1; i < 158; i++ ) {
         myGLCD.drawPixel ( i, 63 + ( cos ( ( ( i * 2.27 ) * 3.14 ) / 180 ) * 40 ) );
     }
@@ -87,7 +87,7 @@ void loop (  ) {
     yield (  );
 
     myGLCD.setColor ( 255, 255, 0 );
-    myGLCD.print ( "Tan", 5, 39 );
+    myGLCD.print ( String("Tan"), 5, 39 );
     for ( int i = 1; i < 158; i++ ) {
         myGLCD.drawPixel ( i, 63 + ( tan ( ( ( i * 2.27 ) * 3.14 ) / 180 ) ) );
     }
@@ -101,7 +101,7 @@ void loop (  ) {
     myGLCD.drawLine ( 79, 14, 79, 113 );
     myGLCD.drawLine ( 1, 63, 158, 63 );
 
-// Draw a moving sinewave
+    // Draw a moving sinewave
     x = 1;
     for ( int i = 1; i < ( 158 * 20 ); i++ ) {
         x++;
@@ -127,7 +127,7 @@ void loop (  ) {
     myGLCD.setColor ( 0, 0, 0 );
     myGLCD.fillRect ( 1, 14, 158, 113 );
 
-// Draw some filled rectangles
+    // Draw some filled rectangles
     for ( int i = 1; i < 6; i++ ) {
         switch ( i ) {
         case 1:
@@ -154,7 +154,7 @@ void loop (  ) {
     myGLCD.setColor ( 0, 0, 0 );
     myGLCD.fillRect ( 1, 14, 158, 113 );
 
-// Draw some filled, rounded rectangles
+    // Draw some filled, rounded rectangles
     for ( int i = 1; i < 6; i++ ) {
         switch ( i ) {
         case 1:
@@ -181,7 +181,7 @@ void loop (  ) {
     myGLCD.setColor ( 0, 0, 0 );
     myGLCD.fillRect ( 1, 14, 158, 113 );
 
-// Draw some filled circles
+    // Draw some filled circles
     for ( int i = 1; i < 6; i++ ) {
         switch ( i ) {
         case 1:
@@ -208,7 +208,7 @@ void loop (  ) {
     myGLCD.setColor ( 0, 0, 0 );
     myGLCD.fillRect ( 1, 14, 158, 113 );
 
-// Draw some lines in a pattern
+    // Draw some lines in a pattern
     myGLCD.setColor ( 255, 0, 0 );
     for ( int i = 14; i < 113; i += 5 ) {
         myGLCD.drawLine ( 1, i, ( i * 1.44 ) - 10, 112 );
@@ -237,7 +237,7 @@ void loop (  ) {
     myGLCD.setColor ( 0, 0, 0 );
     myGLCD.fillRect ( 1, 14, 158, 113 );
 
-// Draw some random circles
+    // Draw some random circles
     for ( int i = 0; i < 100; i++ ) {
         myGLCD.setColor ( random ( 255 ), random ( 255 ), random ( 255 ) );
         x = 22 + random ( 116 );
@@ -251,7 +251,7 @@ void loop (  ) {
     myGLCD.setColor ( 0, 0, 0 );
     myGLCD.fillRect ( 1, 14, 158, 113 );
 
-// Draw some random rectangles
+    // Draw some random rectangles
     for ( int i = 0; i < 100; i++ ) {
         myGLCD.setColor ( random ( 255 ), random ( 255 ), random ( 255 ) );
         x = 2 + random ( 156 );
@@ -266,7 +266,7 @@ void loop (  ) {
     myGLCD.setColor ( 0, 0, 0 );
     myGLCD.fillRect ( 1, 14, 158, 113 );
 
-// Draw some random rounded rectangles
+    // Draw some random rounded rectangles
     for ( int i = 0; i < 100; i++ ) {
         myGLCD.setColor ( random ( 255 ), random ( 255 ), random ( 255 ) );
         x = 2 + random ( 156 );
@@ -309,13 +309,13 @@ void loop (  ) {
 
     myGLCD.setColor ( 255, 255, 255 );
     myGLCD.setBackColor ( 255, 0, 0 );
-    myGLCD.print ( "That's it!", CENTER, 20 );
-    myGLCD.print ( "Restarting in a", CENTER, 45 );
-    myGLCD.print ( "few seconds...", CENTER, 57 );
+    myGLCD.print ( String("That's it!"), CENTER, 20 );
+    myGLCD.print ( String("Restarting in a"), CENTER, 45 );
+    myGLCD.print ( String("few seconds..."), CENTER, 57 );
 
     myGLCD.setColor ( 0, 255, 0 );
     myGLCD.setBackColor ( 0, 0, 255 );
-    myGLCD.print ( "Runtime: (msecs)", CENTER, 103 );
+    myGLCD.print ( String("Runtime: (msecs)"), CENTER, 103 );
     myGLCD.printNumI ( millis (  ), CENTER, 115 );
 
     delay ( 10000 );
