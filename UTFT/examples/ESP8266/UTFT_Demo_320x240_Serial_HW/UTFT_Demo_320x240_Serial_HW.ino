@@ -17,6 +17,7 @@
 //
 
 #include <UTFT.h>
+#include <SPI.h> // not necessary if Arduino IDE version >=1.6.6
 
 // Declare which fonts we will be using
 extern uint8_t SmallFont[];
