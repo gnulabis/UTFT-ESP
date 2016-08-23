@@ -3,21 +3,25 @@
 // *** Hardwarespecific functions ***
 void UTFT::_hw_special_init (  ) {
     if ( hwSPI ) {
-        SPI.begin (  );
-        SPI.setClockDivider ( SPI_CLOCK_DIV4 );
-        SPI.setBitOrder ( MSBFIRST );
-        SPI.setDataMode ( SPI_MODE0 );
+        SPI.beginTransaction(SPISettings (16000000,MSBFIRST,SPI_MODE0));
     }
 }
 
 void UTFT::LCD_Writ_Bus ( char VH, char VL, byte mode ) {
     if ( hwSPI ) {
-        if ( VH == 1 ) {
-            sbi ( P_RS, B_RS );
-        } else {
-            cbi ( P_RS, B_RS );
+        if (mode == 1) {
+            if ( VH == 1 ) {
+                sbi ( P_RS, B_RS );
+            } else {
+                cbi ( P_RS, B_RS );
+            }
+            SPI.write ( VL );
         }
-        SPI.write ( VL );
+        else {
+            uint8_t vh = VH, vl=VL;
+            SPI.write16(vh | (vl << 8),false);
+        }
+
         return;
     }
 
@@ -86,6 +90,9 @@ void UTFT::_set_direction_registers ( byte mode ) {
 }
 
 void UTFT::_fast_fill_16 ( int ch, int cl, long pix ) {
+
+    uint16_t c16 = (uint16_t)ch | ((uint16_t)cl << 8);
+    SPI.writePattern ((uint8_t *)&c16,sizeof(c16),pix);
 }
 
 void UTFT::_fast_fill_8 ( int ch, long pix ) {
