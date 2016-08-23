@@ -116,12 +116,12 @@ UTFT::UTFT(byte model, int CS, int RST, int SER)
 
 	if (display_transfer_mode == SERIAL_4PIN)
 	{
-		display_transfer_mode=1;
+		display_transfer_mode=16;
 		display_serial_mode=SERIAL_4PIN;
 	}
 	if (display_transfer_mode == SERIAL_5PIN)
 	{
-		display_transfer_mode=1;
+		display_transfer_mode=16;
 		display_serial_mode=SERIAL_5PIN;
 	}
 
@@ -215,13 +215,7 @@ UTFT::UTFT(byte model, int RS, int WR, int CS, int RST, int SER)
 
 void UTFT::LCD_Write_COM(char VL)  
 {   
-	if (display_transfer_mode!=1)
-	{
-		cbi(P_RS, B_RS);
-		LCD_Writ_Bus(0x00,VL,display_transfer_mode);
-	}
-	else
-		LCD_Writ_Bus(0x00,VL,display_transfer_mode);
+	LCD_Writ_Bus(0x00,VL,1);
 }
 
 void UTFT::LCD_Write_DATA(char VH,char VL)
@@ -240,13 +234,7 @@ void UTFT::LCD_Write_DATA(char VH,char VL)
 
 void UTFT::LCD_Write_DATA(char VL)
 {
-	if (display_transfer_mode!=1)
-	{
-		sbi(P_RS, B_RS);
-		LCD_Writ_Bus(0x00,VL,display_transfer_mode);
-	}
-	else
-		LCD_Writ_Bus(0x01,VL,display_transfer_mode);
+        LCD_Writ_Bus(0x01,VL,1);
 }
 
 void UTFT::LCD_Write_COM_DATA(char com1,int dat1)
@@ -272,7 +260,7 @@ void UTFT::InitLCD(byte orientation)
 	pinMode(__p3,OUTPUT);
 	if (__p4 != NOTINUSE)
 		pinMode(__p4,OUTPUT);
-	if ((display_transfer_mode==LATCHED_16) or ((display_transfer_mode==1) and (display_serial_mode==SERIAL_5PIN)))
+	if ((display_transfer_mode==LATCHED_16) or (/*(display_transfer_mode==1) and*/ (display_serial_mode==SERIAL_5PIN)))
 		pinMode(__p5,OUTPUT);
 	if (display_transfer_mode!=1)
 		_set_direction_registers(display_transfer_mode);
@@ -368,7 +356,7 @@ void UTFT::InitLCD(byte orientation)
 #endif
 	}
 
-	sbi (P_CS, B_CS); 
+	sbi (P_CS, B_CS);
 
 	setColor(255, 255, 255);
 	setBackColor(0, 0, 0);
@@ -645,7 +633,6 @@ void UTFT::drawCircle(int x, int y, int radius)
 		LCD_Write_DATA(fch,fcl);
 	}
 	sbi(P_CS, B_CS);
-	clrXY();
 }
 
 void UTFT::fillCircle(int x, int y, int radius)
@@ -778,7 +765,6 @@ void UTFT::drawPixel(int x, int y)
 	setXY(x, y, x, y);
 	setPixel((fch<<8)|fcl);
 	sbi(P_CS, B_CS);
-	clrXY();
 }
 
 void UTFT::drawLine(int x1, int y1, int x2, int y2)
@@ -834,7 +820,6 @@ void UTFT::drawLine(int x1, int y1, int x2, int y2)
 		}
 		sbi(P_CS, B_CS);
 	}
-	clrXY();
 }
 
 void UTFT::drawHLine(int x, int y, int l)
@@ -864,7 +849,6 @@ void UTFT::drawHLine(int x, int y, int l)
 		}
 	}
 	sbi(P_CS, B_CS);
-	clrXY();
 }
 
 void UTFT::drawVLine(int x, int y, int l)
@@ -894,7 +878,6 @@ void UTFT::drawVLine(int x, int y, int l)
 		}
 	}
 	sbi(P_CS, B_CS);
-	clrXY();
 }
 
 void UTFT::printChar(byte c, int x, int y)
@@ -978,7 +961,6 @@ void UTFT::printChar(byte c, int x, int y)
 	}
 
 	sbi(P_CS, B_CS);
-	clrXY();
 }
 
 void UTFT::rotateChar(byte c, int x, int y, int pos, int deg)
@@ -1018,7 +1000,6 @@ void UTFT::rotateChar(byte c, int x, int y, int pos, int deg)
 		temp+=(cfont.x_size/8);
 	}
 	sbi(P_CS, B_CS);
-	clrXY();
 }
 
 void UTFT::print(char *st, int x, int y, int deg)
