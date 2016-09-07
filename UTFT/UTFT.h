@@ -40,7 +40,7 @@
 #ifndef UTFT_h
 #define UTFT_h
 
-#define UTFT_VERSION	281
+#define UTFT_VERSION	282
 
 #define LEFT 0
 #define RIGHT 9999
@@ -66,7 +66,7 @@
 #define S6D1121_8		14
 #define S6D1121_16		15
 #define	SSD1289LATCHED	16
-//#define NOT_IN_USE	17
+#define ILI9341_16		17
 //#define NOT_IN_USE	18
 #define SSD1289_8		19
 #define	SSD1963_800ALT	20
@@ -115,7 +115,7 @@
 #define ITDB24E_16		15	// S6D1121	(16bit)
 #define INFINIT32		16	// SSD1289	(Latched 16bit) -- Legacy, will be removed later
 #define ELEE32_REVA		16	// SSD1289	(Latched 16bit)
-//#define NOT_IN_USE	17	
+#define CTE32_R2		17	
 //#define NOT_IN_USE	18	
 #define ELEE32_REVB		19	// SSD1289	(8bit)
 #define TFT01_70		20	// SSD1963	(16bit) 800x480 Alternative Init
