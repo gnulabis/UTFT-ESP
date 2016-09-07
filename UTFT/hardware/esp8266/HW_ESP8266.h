@@ -92,4 +92,5 @@ void UTFT::_fast_fill_8 ( int ch, long pix ) {
 }
 
 void UTFT::_convert_float ( char *buf, double num, int width, byte prec ) {
+  dtostrf ( num, width, prec, buf );
 }
