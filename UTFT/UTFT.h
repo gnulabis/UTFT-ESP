@@ -81,6 +81,7 @@
 #define CPLD			29
 #define HX8353C			30
 #define ST7735_ALT		31
+#define ILI9225B		32
 
 #define ITDB32			0	// HX8347-A (16bit)
 #define ITDB32WC		1	// ILI9327  (16bit)
