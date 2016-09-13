@@ -367,7 +367,7 @@ void UTFT::InitLCD(byte orientation)
 	#include "tft_drivers/hx8353c/initlcd.h"
 #endif
 #ifndef DISABLE_ILI9225B
-	#include "tft_drivers/ili9225B/initlcd.h"
+	#include "tft_drivers/ili9225b/initlcd.h"
 #endif
 	}
 
