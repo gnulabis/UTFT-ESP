@@ -11,9 +11,9 @@
 #elif defined(__arm__)
 	#define PROGMEM
 	#define fontdatatype const unsigned char
-#elif defined(ESP8266)
+#elif defined(ESP8266) || defined(ESP32)
         #include <pgmspace.h>
-	#define fontdatatype const uint8_t
+	#define fontdatatype const char
 #endif
 
 // SmallFont.c 
