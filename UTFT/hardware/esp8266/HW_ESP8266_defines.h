@@ -13,4 +13,4 @@
 
 #define regtype volatile uint32_t
 #define regsize uint32_t
-#define bitmapdatatype unsigned int*
+#define bitmapdatatype unsigned short*
