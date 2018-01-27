@@ -5,9 +5,10 @@
 #endif
 
 #ifdef ESP32
-  #define cbi(reg, bitmask) CLEAR_PERI_REG_MASK(reg, bitmask)
-  #define sbi(reg, bitmask) SET_PERI_REG_MASK(reg, bitmask)
+  #define cbi(reg, bitmask) *reg &= ~bitmask
+  #define sbi(reg, bitmask) *reg |= bitmask
 #endif
+
 #define pulse_high(reg, bitmask) sbi(reg, bitmask); cbi(reg, bitmask);
 #define pulse_low(reg, bitmask) cbi(reg, bitmask); sbi(reg, bitmask);
 

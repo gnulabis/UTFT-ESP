@@ -12,8 +12,9 @@
 	#define PROGMEM
 	#define fontdatatype const unsigned char
 #elif defined(ESP8266) || defined(ESP32)
+        #include <Arduino.h>
         #include <pgmspace.h>
-	#define fontdatatype const char
+        #define fontdatatype const uint8_t
 #endif
 
 // SmallFont.c 

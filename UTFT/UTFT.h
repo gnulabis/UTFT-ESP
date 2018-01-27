@@ -141,7 +141,6 @@
 #define CTE70CPLD		29	// CPLD		(16bit)
 #define DMTFT18101      30  // HX8353C  (Serial 5Pin)
 #define TFT18SHLD		31	// ST7735	(Serial 5Pin) Alternative Init
-#define QD220A		    32  // ILI9225 2.2 inch screen 
 
 #define SERIAL_4PIN		4
 #define SERIAL_5PIN		5
@@ -182,7 +181,7 @@
 	#include "hardware/arm/HW_ARM_defines.h"
 #elif defined(ESP8266) || defined(ESP32)
 	#include "Arduino.h"
-	#include "hardware/esp8266/HW_ESP8266_defines.h"
+	#include "hardware/esp/HW_ESP_defines.h"
 #endif
 
 struct _current_font
