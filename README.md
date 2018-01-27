@@ -1,19 +1,19 @@
-# UTFT-ESP8266
+# UTFT-ESP
 
 ## Project Summary
-This project brings support for the [ESP8266](https://en.wikipedia.org/wiki/ESP8266) microcontroller to the popular [UTFT library](http://www.rinkydinkelectronics.com/library.php?id=51). For now, only displays with serial interfaces are supported (no 8-bit parallel mode, etc).
+This project brings support for the [ESP8266](https://en.wikipedia.org/wiki/ESP8266) and [ESP32](https://en.wikipedia.org/wiki/ESP32) series of microcontrollers to the popular [UTFT library](http://www.rinkydinkelectronics.com/library.php?id=51). For now, only displays with serial interfaces are supported (no 8-bit parallel mode, etc).
 
 To use it, simply copy the UTFT folder to your [Arduino library folder](https://www.arduino.cc/en/Guide/Libraries).
 
-In addition to the original [bit-banging](https://en.wikipedia.org/wiki/Bit_banging) communication method of the UTFT library, this project also introduces support for true hardware SPI communication (only supported on ESP8266 for now, sorry for that) for serial interface displays. A new UTFT constructor has been added for this purpose:
+In addition to the original [bit-banging](https://en.wikipedia.org/wiki/Bit_banging) communication method of the UTFT library, this project also introduces support for true hardware SPI communication for serial interface displays. A new UTFT constructor has been added for this purpose:
 
 `UTFT(byte model, int CS, int RST, int SER=0);`
 
-When the above constructor is invoked, the library will automatically use the hardware SPI pins for SCK and MOSI (GPIO14 and GPIO13 respectively on the ESP8266).
+When the above constructor is invoked, the library will automatically use the hardware SPI pins for SCK and MOSI (GPIO14 and GPIO13 respectively on the ESP8266 and ESP32).
 
 You might want to have a look at the included Arduino IDE examples for ideas on how to establish the communication between the ESP8266 and your TFT display.
 
-This work has been tested with an ESP-12 module, several ILI9341-based and ST7735-based serial displays, Arduino IDE 1.6.5, 1.6.6 and 1.6.11, using stable versions 2.0.0 and 2.3.0 of the excellent [esp8266 platform package for Arduino](https://github.com/esp8266/Arduino).
+This work has been tested with an ESP-12 module, an ESP32 module, several ILI9341-based and ST7735-based serial displays, Arduino IDE 1.6.5, 1.6.6 and 1.6.11, using stable versions 2.0.0 and 2.3.0 of the excellent [esp8266 platform package for Arduino](https://github.com/esp8266/Arduino) and [Arduino core for the ESP32](https://github.com/espressif/arduino-esp32).
 
 *Please keep in mind that this is still work in progress. Use it at your own risk.*
 
