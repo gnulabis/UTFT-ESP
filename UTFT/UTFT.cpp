@@ -84,7 +84,7 @@
 	#else
 		#error "Unsupported ARM MCU!"
 	#endif
-#elif defined(ESP8266)
+#elif defined(ESP8266) || defined(ESP32)
         #include "hardware/esp8266/HW_ESP8266.h"
 #endif
 #include "memorysaver.h"
@@ -93,7 +93,7 @@ UTFT::UTFT()
 {
 }
 
-#if defined(ESP8266)
+#if defined(ESP8266) || defined(ESP32)
 // Constructor when using hardware SPI
 UTFT::UTFT(byte model, int CS, int RST, int SER)
 {
@@ -148,7 +148,7 @@ UTFT::UTFT(byte model, int CS, int RST, int SER)
 		B_RS	= digitalPinToBitMask(SER);
 	    }
 }
-#endif // defined(ESP8266)
+#endif // defined(ESP8266) || defined(ESP32)
 
 UTFT::UTFT(byte model, int RS, int WR, int CS, int RST, int SER)
 { 
@@ -165,7 +165,7 @@ UTFT::UTFT(byte model, int RS, int WR, int CS, int RST, int SER)
 					 16, 16, 16, 8, SERIAL_5PIN, SERIAL_5PIN, SERIAL_4PIN, 16, 16, 16,		// 20-29
 					 SERIAL_5PIN, SERIAL_5PIN, SERIAL_5PIN};								// 30-
 
-#if defined(ESP8266)
+#if defined(ESP8266) || defined(ESP32)
 	hwSPI = false;
 #endif
 	disp_x_size =			dsx[model];
@@ -278,7 +278,7 @@ void UTFT::InitLCD(byte orientation)
 	orient=orientation;
 	_hw_special_init();
 
-#if defined(ESP8266)
+#if defined(ESP8266) || defined(ESP32)
 	if (hwSPI == false) {
 	    pinMode(__p1,OUTPUT);
 	    pinMode(__p2,OUTPUT);

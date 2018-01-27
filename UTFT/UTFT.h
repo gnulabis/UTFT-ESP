@@ -141,6 +141,7 @@
 #define CTE70CPLD		29	// CPLD		(16bit)
 #define DMTFT18101      30  // HX8353C  (Serial 5Pin)
 #define TFT18SHLD		31	// ST7735	(Serial 5Pin) Alternative Init
+#define QD220A		    32  // ILI9225 2.2 inch screen 
 
 #define SERIAL_4PIN		4
 #define SERIAL_5PIN		5
@@ -179,7 +180,7 @@
 #elif defined(__arm__)
 	#include "Arduino.h" // This will include energia.h where appropriate
 	#include "hardware/arm/HW_ARM_defines.h"
-#elif defined(ESP8266)
+#elif defined(ESP8266) || defined(ESP32)
 	#include "Arduino.h"
 	#include "hardware/esp8266/HW_ESP8266_defines.h"
 #endif
@@ -198,7 +199,7 @@ class UTFT
 	public:
 		UTFT();
 		UTFT(byte model, int RS, int WR, int CS, int RST, int SER=0);
-#if defined(ESP8266)
+#if defined(ESP8266) || defined(ESP32)
 		UTFT(byte model, int CS, int RST, int SER=0);
 #endif
 		void	InitLCD(byte orientation=LANDSCAPE);
@@ -274,7 +275,7 @@ class UTFT
 		void _fast_fill_8(int ch, long pix);
 		void _convert_float(char *buf, double num, int width, byte prec);
 
-#if defined(ESP8266)
+#if defined(ESP8266) || defined(ESP32)
 		boolean hwSPI;
 #endif
 #if defined(ENERGIA)
