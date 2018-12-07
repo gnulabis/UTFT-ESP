@@ -18,7 +18,7 @@
   see the document UTFT_Supported_display_modules_&_controllers.pdf.
 
   When using 8bit and 16bit display modules there are some
-  requirements you must adhere to. These requirements can be found 
+  requirements you must adhere to. These requirements can be found
   in the document UTFT_Requirements.pdf.
   There are no special requirements when using serial displays.
 
@@ -101,15 +101,15 @@ UTFT::UTFT(byte model, int CS, int RST, int SER)
 	word	dsx[] = {239, 239, 239, 239, 239, 239, 175, 175, 239, 127,
 			 127, 239, 271, 479, 239, 239, 239, 239, 0, 239,
 			 479, 319, 239, 175, 127, 239, 239, 319, 319, 799,
-			 127, 127,175};
+			 127, 127, 175, 128};
 	word	dsy[] = {319, 399, 319, 319, 319, 319, 219, 219, 399, 159,
 			 127, 319, 479, 799, 319, 319, 319, 319, 0, 319,
 			 799, 479, 319, 219, 159, 319, 319, 479, 479, 479,
-			 159, 159,219};
+			 159, 159, 219, 128};
 	byte	dtm[] = {16, 16, 16, 8, 8, 16, 8, SERIAL_4PIN, 16, SERIAL_5PIN,
 			 SERIAL_5PIN, 16, 16, 16, 8, 16, LATCHED_16, 16, 0, 8,
 			 16, 16, 16, 8, SERIAL_5PIN, SERIAL_5PIN, SERIAL_4PIN, 16, 16, 16,
-			 SERIAL_5PIN, SERIAL_5PIN, SERIAL_5PIN};
+			 SERIAL_5PIN, SERIAL_5PIN, SERIAL_5PIN, SERIAL_5PIN};
 
 	hwSPI = true;
 
@@ -156,15 +156,15 @@ UTFT::UTFT(byte model, int RS, int WR, int CS, int RST, int SER)
 	word	dsx[] = {239, 239, 239, 239, 239, 239, 175, 175, 239, 127,		// 00-09
 					 127, 239, 271, 479, 239, 239, 239, 239, 0, 239,			// 10-19
 					 479, 319, 239, 175, 127, 239, 239, 319, 319, 799,		// 20-29
-					 127, 127, 175};											// 30-
+					 127, 127, 175, 128};											// 30-
 	word	dsy[] = {319, 399, 319, 319, 319, 319, 219, 219, 399, 159,		// 00-09
 					 127, 319, 479, 799, 319, 319, 319, 319, 0, 319,			// 10-19
 					 799, 479, 319, 219, 159, 319, 319, 479, 479, 479,		// 20-29
-					 159, 159, 219};											// 30-
+					 159, 159, 219, 128};											// 30-
 	byte	dtm[] = {16, 16, 16, 8, 8, 16, 8, SERIAL_4PIN, 16, SERIAL_5PIN,					// 00-09
 					 SERIAL_5PIN, 16, 16, 16, 8, 16, LATCHED_16, 16, 0, 8,					// 10-19
 					 16, 16, 16, 8, SERIAL_5PIN, SERIAL_5PIN, SERIAL_4PIN, 16, 16, 16,		// 20-29
-					 SERIAL_5PIN, SERIAL_5PIN, SERIAL_5PIN};								// 30-
+					 SERIAL_5PIN, SERIAL_5PIN, SERIAL_5PIN, SERIAL_5PIN};								// 30-
 
 #if defined(ESP8266) || defined(ESP32)
 	hwSPI = false;
@@ -334,6 +334,9 @@ void UTFT::InitLCD(byte orientation)
 #ifndef DISABLE_ST7735
 	#include "tft_drivers/st7735/std/initlcd.h"
 #endif
+#ifndef DISABLE_ST7735_128
+	#include "tft_drivers/st7735/128/initlcd.h"
+#endif
 #ifndef DISABLE_ST7735_ALT
 	#include "tft_drivers/st7735/alt/initlcd.h"
 #endif
@@ -443,6 +446,9 @@ void UTFT::setXY(word x1, word y1, word x2, word y2)
 #endif
 #ifndef DISABLE_ST7735
 	#include "tft_drivers/st7735/std/setxy.h"
+#endif
+#ifndef DISABLE_ST7735_128
+	#include "tft_drivers/st7735/128/setxy.h"
 #endif
 #ifndef DISABLE_ST7735_ALT
 	#include "tft_drivers/st7735/alt/setxy.h"

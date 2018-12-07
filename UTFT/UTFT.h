@@ -59,6 +59,7 @@
 #define HX8340B_S		7
 #define HX8352A			8
 #define ST7735			9
+#define ST7735_128    33
 #define PCF8833			10
 #define S1D19122		11
 #define SSD1963_480		12
