@@ -17,7 +17,11 @@ This work has been tested with an ESP-12 module, an ESP32 module, several ILI934
 
 *Please keep in mind that this is still work in progress. Use it at your own risk.*
 
+## Development
+
 For bug fixes and code improvements, please submit a pull request.
+
+Please only submit ESP-related code. For other UTFT patches and improvements (e.g. support for new display modules), please submit your work upstream to the [UTFT library](http://www.rinkydinkelectronics.com/library.php?id=51) itself.
 
 ## License and Credits
 This project is based on the original [UTFT library](http://www.rinkydinkelectronics.com/library.php?id=51) developed and maintained by Henning Karlsen, and licensed under [CC BY-NC-SA 3.0](http://creativecommons.org/licenses/by-nc-sa/3.0/).
