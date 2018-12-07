@@ -41,10 +41,10 @@
 //#define DISABLE_ST7735S			1	// TFT01_18SP
 
 // ----------------------------------------------------------------------------
-// The following TFT controllers are used by display modules and shields that 
+// The following TFT controllers are used by display modules and shields that
 // have been retired by their vendors. They are still supported but support may
-// be removed in future versions of the library. These controllers are disabled 
-// by default to save flash memory. To use them you must enable support for 
+// be removed in future versions of the library. These controllers are disabled
+// by default to save flash memory. To use them you must enable support for
 // them by commenting them out here.
 
 #define DISABLE_HX8340B_S 			1	// ITDB22 Serial mode

@@ -1,28 +1,28 @@
 /*
   UTFT.cpp - Multi-Platform library support for Color TFT LCD Boards
   Copyright (C)2015 Rinky-Dink Electronics, Henning Karlsen. All right reserved
-  
+
   This library is the continuation of my ITDB02_Graph, ITDB02_Graph16
-  and RGB_GLCD libraries for Arduino and chipKit. As the number of 
-  supported display modules and controllers started to increase I felt 
-  it was time to make a single, universal library as it will be much 
+  and RGB_GLCD libraries for Arduino and chipKit. As the number of
+  supported display modules and controllers started to increase I felt
+  it was time to make a single, universal library as it will be much
   easier to maintain in the future.
 
-  Basic functionality of this library was origianlly based on the 
-  demo-code provided by ITead studio (for the ITDB02 modules) and 
+  Basic functionality of this library was origianlly based on the
+  demo-code provided by ITead studio (for the ITDB02 modules) and
   NKC Electronics (for the RGB GLCD module/shield).
 
-  This library supports a number of 8bit, 16bit and serial graphic 
-  displays, and will work with both Arduino, chipKit boards and select 
+  This library supports a number of 8bit, 16bit and serial graphic
+  displays, and will work with both Arduino, chipKit boards and select
   TI LaunchPads. For a full list of tested display modules and controllers,
   see the document UTFT_Supported_display_modules_&_controllers.pdf.
 
-  When using 8bit and 16bit display modules there are some 
+  When using 8bit and 16bit display modules there are some
   requirements you must adhere to. These requirements can be found 
   in the document UTFT_Requirements.pdf.
   There are no special requirements when using serial displays.
 
-  You can find the latest version of the library at 
+  You can find the latest version of the library at
   http://www.RinkyDinkElectronics.com/
 
   This library is free software; you can redistribute it and/or
@@ -33,7 +33,7 @@
   will allow commercial use. This includes using the library,
   modified or not, as a tool to sell products.
 
-  The license applies to all part of the library including the 
+  The license applies to all part of the library including the
   examples and tools supplied with the library.
 */
 
@@ -44,7 +44,7 @@
 	#include <avr/pgmspace.h>
 	#include "hardware/avr/HW_AVR.h"
 	#if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
-		#include "hardware/avr/HW_ATmega1280.h" 
+		#include "hardware/avr/HW_ATmega1280.h"
 	#elif defined(__AVR_ATmega328P__)
 		#include "hardware/avr/HW_ATmega328P.h"
 	#elif defined(__AVR_ATmega32U4__)
@@ -69,7 +69,7 @@
 	#include "hardware/pic32/HW_PIC32MX795F512L.h"
   #else
     #error "Unsupported PIC32 MCU!"
-  #endif  
+  #endif
 #elif defined(__arm__)
 	#include "hardware/arm/HW_ARM.h"
 	#if defined(__SAM3X8E__)
@@ -152,7 +152,7 @@ UTFT::UTFT(byte model, int CS, int RST, int SER)
 #endif // defined(ESP8266) || defined(ESP32)
 
 UTFT::UTFT(byte model, int RS, int WR, int CS, int RST, int SER)
-{ 
+{
 	word	dsx[] = {239, 239, 239, 239, 239, 239, 175, 175, 239, 127,		// 00-09
 					 127, 239, 271, 479, 239, 239, 239, 239, 0, 239,			// 10-19
 					 479, 319, 239, 175, 127, 239, 239, 319, 319, 799,		// 20-29
@@ -232,8 +232,8 @@ UTFT::UTFT(byte model, int RS, int WR, int CS, int RST, int SER)
 	}
 }
 
-void UTFT::LCD_Write_COM(char VL)  
-{   
+void UTFT::LCD_Write_COM(char VL)
+{
 	if (display_transfer_mode!=1)
 	{
 		cbi(P_RS, B_RS);
@@ -297,7 +297,7 @@ void UTFT::InitLCD(byte orientation)
 		_set_direction_registers(display_transfer_mode);
 
 	sbi(P_RST, B_RST);
-	delay(5); 
+	delay(5);
 	cbi(P_RST, B_RST);
 	delay(15);
 	sbi(P_RST, B_RST);
@@ -393,7 +393,7 @@ void UTFT::InitLCD(byte orientation)
 #endif
 	}
 
-	sbi (P_CS, B_CS); 
+	sbi (P_CS, B_CS);
 
 	setColor(255, 255, 255);
 	setBackColor(0, 0, 0);
@@ -636,7 +636,7 @@ void UTFT::drawCircle(int x, int y, int radius)
 	int ddF_y = -2 * radius;
 	int x1 = 0;
 	int y1 = radius;
- 
+
 	cbi(P_CS, B_CS);
 	setXY(x, y + radius, x, y + radius);
 	LCD_Write_DATA(fch,fcl);
@@ -646,10 +646,10 @@ void UTFT::drawCircle(int x, int y, int radius)
 	LCD_Write_DATA(fch,fcl);
 	setXY(x - radius, y, x - radius, y);
 	LCD_Write_DATA(fch,fcl);
- 
+
 	while(x1 < y1)
 	{
-		if(f >= 0) 
+		if(f >= 0)
 		{
 			y1--;
 			ddF_y += 2;
@@ -657,7 +657,7 @@ void UTFT::drawCircle(int x, int y, int radius)
 		}
 		x1++;
 		ddF_x += 2;
-		f += ddF_x;    
+		f += ddF_x;
 		setXY(x + x1, y + y1, x + x1, y + y1);
 		LCD_Write_DATA(fch,fcl);
 		setXY(x - x1, y + y1, x - x1, y + y1);
@@ -681,9 +681,9 @@ void UTFT::drawCircle(int x, int y, int radius)
 
 void UTFT::fillCircle(int x, int y, int radius)
 {
-	for(int y1=-radius; y1<=0; y1++) 
+	for(int y1=-radius; y1<=0; y1++)
 		for(int x1=-radius; x1<=0; x1++)
-			if(x1*x1+y1*y1 <= radius*radius) 
+			if(x1*x1+y1*y1 <= radius*radius)
 			{
 				drawHLine(x+x1, y+y1, 2*(-x1));
 				drawHLine(x+x1, y-y1, 2*(-x1));
@@ -694,7 +694,7 @@ void UTFT::fillCircle(int x, int y, int radius)
 void UTFT::clrScr()
 {
 	long i;
-	
+
 	cbi(P_CS, B_CS);
 	clrXY();
 	if (display_transfer_mode!=1)
@@ -729,7 +729,7 @@ void UTFT::fillScr(word color)
 {
 	long i;
 	char ch, cl;
-	
+
 	ch=byte(color>>8);
 	cl=byte(color & 0xFF);
 
@@ -843,7 +843,7 @@ void UTFT::drawLine(int x1, int y1, int x2, int y2)
 					col += xstep;
 					t   -= dy;
 				}
-			} 
+			}
 		}
 		else
 		{
@@ -861,7 +861,7 @@ void UTFT::drawLine(int x1, int y1, int x2, int y2)
 					row += ystep;
 					t   -= dx;
 				}
-			} 
+			}
 		}
 		sbi(P_CS, B_CS);
 	}
@@ -932,30 +932,30 @@ void UTFT::printChar(byte c, int x, int y)
 {
 	byte i,ch;
 	word j;
-	word temp; 
+	word temp;
 
 	cbi(P_CS, B_CS);
-  
+
 	if (!_transparent)
 	{
 		if (orient==PORTRAIT)
 		{
 			setXY(x,y,x+cfont.x_size-1,y+cfont.y_size-1);
-	  
+
 			temp=((c-cfont.offset)*((cfont.x_size/8)*cfont.y_size))+4;
 			for(j=0;j<((cfont.x_size/8)*cfont.y_size);j++)
 			{
 				ch=pgm_read_byte(&cfont.font[temp]);
 				for(i=0;i<8;i++)
-				{   
-					if((ch&(1<<(7-i)))!=0)   
+				{
+					if((ch&(1<<(7-i)))!=0)
 					{
 						setPixel((fch<<8)|fcl);
-					} 
+					}
 					else
 					{
 						setPixel((bch<<8)|bcl);
-					}   
+					}
 				}
 				temp++;
 			}
@@ -971,15 +971,15 @@ void UTFT::printChar(byte c, int x, int y)
 				{
 					ch=pgm_read_byte(&cfont.font[temp+zz]);
 					for(i=0;i<8;i++)
-					{   
-						if((ch&(1<<i))!=0)   
+					{
+						if((ch&(1<<i))!=0)
 						{
 							setPixel((fch<<8)|fcl);
-						} 
+						}
 						else
 						{
 							setPixel((bch<<8)|bcl);
-						}   
+						}
 					}
 				}
 				temp+=(cfont.x_size/8);
@@ -989,19 +989,19 @@ void UTFT::printChar(byte c, int x, int y)
 	else
 	{
 		temp=((c-cfont.offset)*((cfont.x_size/8)*cfont.y_size))+4;
-		for(j=0;j<cfont.y_size;j++) 
+		for(j=0;j<cfont.y_size;j++)
 		{
 			for (int zz=0; zz<(cfont.x_size/8); zz++)
 			{
-				ch=pgm_read_byte(&cfont.font[temp+zz]); 
+				ch=pgm_read_byte(&cfont.font[temp+zz]);
 				for(i=0;i<8;i++)
-				{   
-				
-					if((ch&(1<<(7-i)))!=0)   
+				{
+
+					if((ch&(1<<(7-i)))!=0)
 					{
 						setXY(x+i+(zz*8),y+j,x+i+(zz*8)+1,y+j+1);
 						setPixel((fch<<8)|fcl);
-					} 
+					}
 				}
 			}
 			temp+=(cfont.x_size/8);
@@ -1015,35 +1015,35 @@ void UTFT::printChar(byte c, int x, int y)
 void UTFT::rotateChar(byte c, int x, int y, int pos, int deg)
 {
 	byte i,j,ch;
-	word temp; 
+	word temp;
 	int newx,newy;
 	double radian;
-	radian=deg*0.0175;  
+	radian=deg*0.0175;
 
 	cbi(P_CS, B_CS);
 
 	temp=((c-cfont.offset)*((cfont.x_size/8)*cfont.y_size))+4;
-	for(j=0;j<cfont.y_size;j++) 
+	for(j=0;j<cfont.y_size;j++)
 	{
 		for (int zz=0; zz<(cfont.x_size/8); zz++)
 		{
-			ch=pgm_read_byte(&cfont.font[temp+zz]); 
+			ch=pgm_read_byte(&cfont.font[temp+zz]);
 			for(i=0;i<8;i++)
-			{   
+			{
 				newx=x+(((i+(zz*8)+(pos*cfont.x_size))*cos(radian))-((j)*sin(radian)));
 				newy=y+(((j)*cos(radian))+((i+(zz*8)+(pos*cfont.x_size))*sin(radian)));
 
 				setXY(newx,newy,newx+1,newy+1);
-				
-				if((ch&(1<<(7-i)))!=0)   
+
+				if((ch&(1<<(7-i)))!=0)
 				{
 					setPixel((fch<<8)|fcl);
-				} 
-				else  
+				}
+				else
 				{
 					if (!_transparent)
 						setPixel((bch<<8)|bcl);
-				}   
+				}
 			}
 		}
 		temp+=(cfont.x_size/8);
@@ -1094,7 +1094,7 @@ void UTFT::printNumI(long num, int x, int y, int length, char filler)
 	char st[27];
 	boolean neg=false;
 	int c=0, f=0;
-  
+
 	if (num==0)
 	{
 		if (length!=0)
@@ -1117,7 +1117,7 @@ void UTFT::printNumI(long num, int x, int y, int length, char filler)
 			neg=true;
 			num=-num;
 		}
-	  
+
 		while (num>0)
 		{
 			buf[c]=48+(num % 10);
@@ -1125,12 +1125,12 @@ void UTFT::printNumI(long num, int x, int y, int length, char filler)
 			num=(num-(num % 10))/10;
 		}
 		buf[c]=0;
-	  
+
 		if (neg)
 		{
 			st[0]=45;
 		}
-	  
+
 		if (length>(c+neg))
 		{
 			for (int i=0; i<(length-c-neg); i++)
@@ -1295,7 +1295,7 @@ void UTFT::drawBitmap(int x, int y, int sx, int sy, bitmapdatatype data, int deg
 	unsigned int col;
 	int tx, ty, newx, newy;
 	double radian;
-	radian=deg*0.0175;  
+	radian=deg*0.0175;
 
 	if (deg==0)
 		drawBitmap(x, y, sx, sy, data);
@@ -1328,7 +1328,7 @@ void UTFT::lcdOff()
 		break;
 	case CPLD:
 		LCD_Write_COM_DATA(0x01,0x0000);
-		LCD_Write_COM(0x0F);   
+		LCD_Write_COM(0x0F);
 		break;
 	}
 	sbi(P_CS, B_CS);
@@ -1344,7 +1344,7 @@ void UTFT::lcdOn()
 		break;
 	case CPLD:
 		LCD_Write_COM_DATA(0x01,0x0010);
-		LCD_Write_COM(0x0F);   
+		LCD_Write_COM(0x0F);
 		break;
 	}
 	sbi(P_CS, B_CS);
@@ -1388,7 +1388,7 @@ void UTFT::setBrightness(byte br)
 	case CPLD:
 		if (br>16) br=16;
 		LCD_Write_COM_DATA(0x01,br);
-		LCD_Write_COM(0x0F);   
+		LCD_Write_COM(0x0F);
 		break;
 	}
 	sbi(P_CS, B_CS);
@@ -1402,7 +1402,7 @@ void UTFT::setDisplayPage(byte page)
 	case CPLD:
 		if (page>7) page=7;
 		LCD_Write_COM_DATA(0x04,page);
-		LCD_Write_COM(0x0F);   
+		LCD_Write_COM(0x0F);
 		break;
 	}
 	sbi(P_CS, B_CS);
@@ -1416,7 +1416,7 @@ void UTFT::setWritePage(byte page)
 	case CPLD:
 		if (page>7) page=7;
 		LCD_Write_COM_DATA(0x05,page);
-		LCD_Write_COM(0x0F);   
+		LCD_Write_COM(0x0F);
 		break;
 	}
 	sbi(P_CS, B_CS);
