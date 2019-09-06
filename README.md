@@ -23,6 +23,12 @@ For bug fixes and code improvements, please submit a pull request.
 
 Please only submit ESP-related code. For other UTFT patches and improvements (e.g. support for new display modules), please submit your work upstream to the [UTFT library](http://www.rinkydinkelectronics.com/library.php?id=51) itself.
 
+## Support
+
+Have a look at the Support section of the [Wiki](https://github.com/gnulabis/UTFT-ESP/wiki#support) first.
+
+If you don't find your answer there, check for any existing [issues](https://github.com/gnulabis/UTFT-ESP/issues) that match your request. If you cannot find one, please create a new issue.
+
 ## License and Credits
 This project is based on the original [UTFT library](http://www.rinkydinkelectronics.com/library.php?id=51) developed and maintained by Henning Karlsen, and licensed under [CC BY-NC-SA 3.0](http://creativecommons.org/licenses/by-nc-sa/3.0/).
 
